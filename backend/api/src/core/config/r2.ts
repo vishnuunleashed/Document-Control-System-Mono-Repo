@@ -8,4 +8,5 @@ export const r2Client = new S3Client({
     accessKeyId: config.R2_ACCESS_KEY,
     secretAccessKey: config.R2_SECRET_KEY,
   },
+  forcePathStyle: true,
 });

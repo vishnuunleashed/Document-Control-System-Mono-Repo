@@ -1,13 +1,21 @@
 import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
 import helmet from "helmet";
+import path from "path";
 import { config } from "./core/config/config";
 import { connectDatabase } from "./core/database/db";
+
+// Import feature routes
+import authRoutes from "./features/auth/presentation/routes/auth.routes";
+import documentRoutes from "./features/documents/presentation/routes/document.routes";
+import approvalRoutes from "./features/approvals/presentation/routes/approval.routes";
 
 const app = express();
 
 // Security Middleware
-app.use(helmet());
+app.use(helmet({
+  crossOriginResourcePolicy: false, // Allow loading images/files locally
+}));
 app.use(cors({
   origin: "*", // Adjust to specific domains in production
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
@@ -17,6 +25,14 @@ app.use(cors({
 // Body Parsers
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Serve local static uploads fallback
+app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
+
+// Mount API routes
+app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/documents", documentRoutes);
+app.use("/api/v1/approvals", approvalRoutes);
 
 // Root Route
 app.get("/", (req: Request, res: Response) => {

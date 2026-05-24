@@ -1,32 +1,43 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_app/features/auth/presentation/pages/login_page.dart';
+import 'package:flutter_app/features/dashboard/presentation/pages/dashboard_page.dart';
+import 'package:flutter_app/features/documents/presentation/pages/document_detail_page.dart';
+import 'package:flutter_app/shared/services/session_manager.dart';
 
 class AppRoutes {
   static const String login = '/login';
   static const String dashboard = '/';
+  static const String documentDetail = '/document/:id';
 
   static final GoRouter router = GoRouter(
     initialLocation: dashboard,
+    redirect: (context, state) {
+      final loggedIn = SessionManager.isAuthenticated;
+      final goingToLogin = state.matchedLocation == login;
+
+      if (!loggedIn && !goingToLogin) {
+        return login;
+      }
+      if (loggedIn && goingToLogin) {
+        return dashboard;
+      }
+      return null;
+    },
     routes: [
       GoRoute(
         path: login,
-        builder: (context, state) => const Scaffold(
-          body: Center(
-            child: Text('DCS Login Screen (Placeholder)'),
-          ),
-        ),
+        builder: (context, state) => const LoginPage(),
       ),
       GoRoute(
         path: dashboard,
-        builder: (context, state) => const Scaffold(
-          body: Center(
-            child: Text(
-              'Document Control System\n(Clean Architecture Initialized)',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-          ),
-        ),
+        builder: (context, state) => const DashboardPage(),
+      ),
+      GoRoute(
+        path: documentDetail,
+        builder: (context, state) {
+          final id = state.pathParameters['id']!;
+          return DocumentDetailPage(documentId: id);
+        },
       ),
     ],
   );
