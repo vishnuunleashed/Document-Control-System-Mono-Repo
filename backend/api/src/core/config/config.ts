@@ -15,6 +15,7 @@ const envSchema = z.object({
   R2_ACCESS_KEY: z.string().min(1, "R2_ACCESS_KEY is required"),
   R2_SECRET_KEY: z.string().min(1, "R2_SECRET_KEY is required"),
   R2_BUCKET_NAME: z.string().default("dcs-files"),
+  R2_PUBLIC_URL: z.string().optional(),
 });
 
 const parsed = envSchema.safeParse(process.env);

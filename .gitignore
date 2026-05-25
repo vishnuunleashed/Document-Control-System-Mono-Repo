@@ -20,6 +20,10 @@ temp/
 .env.backup
 *.env
 
+# SSH Keys — NEVER commit these
+*.pem
+*.key
+
 # IDEs and editors
 .idea/
 .vscode/
@@ -43,3 +47,8 @@ Thumbs.db
 /apps/flutter_app/ios/Flutter/flutter_export_environment.sh
 /apps/flutter_app/ios/Flutter/ephemeral/
 /apps/flutter_app/windows/flutter/ephemeral/
+
+# Local uploads fallback
+uploads/
+**/uploads/
+

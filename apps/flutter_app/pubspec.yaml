@@ -29,8 +29,18 @@ dependencies:
   # Env configuration
   flutter_dotenv: ^5.1.0
 
+  # Device & File Picker Utilities
+  file_picker: ^11.0.2
+  connectivity_plus: ^5.0.2
+  path_provider: ^2.1.2
+  path: ^1.9.0
+  uuid: ^4.3.3
+  intl: ^0.19.0
+
   # Icon utility
   cupertino_icons: ^1.0.6
+  url_launcher: ^6.3.2
+  shared_preferences: ^2.5.3
 
 dev_dependencies:
   flutter_test:
