@@ -118,7 +118,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     // File Picker Widget
                     InkWell(
                       onTap: () async {
-                        final result = await FilePicker.platform.pickFiles(
+                        final result = await FilePicker.pickFiles(
                           type: FileType.custom,
                           allowedExtensions: ['pdf', 'docx', 'png', 'jpg', 'jpeg'],
                         );

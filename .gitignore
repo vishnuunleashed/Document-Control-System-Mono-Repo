@@ -20,6 +20,10 @@ temp/
 .env.backup
 *.env
 
+# SSH Keys — NEVER commit these
+*.pem
+*.key
+
 # IDEs and editors
 .idea/
 .vscode/
